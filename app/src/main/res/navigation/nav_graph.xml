@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/rangeFrag">
+    app:startDestination="@id/dateTimeFrag">
 
     <fragment
         android:id="@+id/rangeFrag"
         android:name="com.alice.materialcalender.range.RangeFrag"
         android:label="RangeFrag"
         tools:layout="@layout/frag_range"/>
+    <fragment
+        android:id="@+id/dateTimeFrag"
+        android:name="com.alice.materialcalender.datetime.DateTimeFrag"
+        android:label="DateTimeFrag"
+        tools:layout="@layout/frag_date_time"/>
 </navigation>
