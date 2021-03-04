@@ -30,6 +30,8 @@ class DateTimeFrag : BaseFrag() {
     lateinit var startDate: Array<String>
     lateinit var endDate: Array<String>
 
+    val disabledList = ArrayList<CalendarDay>()
+
     private val year = CalendarDay.today().year
     private val month = CalendarDay.today().month
     private val day = CalendarDay.today().day
@@ -62,14 +64,17 @@ class DateTimeFrag : BaseFrag() {
 
     private fun dateTimeCalendar() {
         binding.calendarView.setOnDateChangedListener { _, date, selected ->
-            if (selected) {
-                dateList.add(date.date.toString())
-                val checked = listOf(CalendarDay.from(date.year, date.month, date.day))
-                setDecor(checked, R.drawable.r_independent, select)
-            } else {
-                dateList.remove(date.date.toString())
-                val unchecked = listOf(CalendarDay.from(date.year, date.month, date.day))
-                setDecor(unchecked, R.drawable.l_independent, available)
+            val checkedDate = CalendarDay.from(date.year, date.month, date.day)
+            if (!disabledList.contains(checkedDate)) {
+                if (selected) {
+                    dateList.add(date.date.toString())
+                    val checked = listOf(checkedDate)
+                    setDecor(checked, R.drawable.r_independent, select)
+                } else {
+                    dateList.remove(date.date.toString())
+                    val unchecked = listOf(CalendarDay.from(date.year, date.month, date.day))
+                    setDecor(unchecked, R.drawable.l_independent, available)
+                }
             }
         }
         binding.calendarView.invalidateDecorators()
@@ -79,7 +84,6 @@ class DateTimeFrag : BaseFrag() {
         var localDate = LocalDate.of(startDate[0].toInt(), startDate[1].toInt(), startDate[2].toInt())
         val endLocalDate = LocalDate.of(endDate[0].toInt(), endDate[1].toInt(), endDate[2].toInt())
         var strings = ArrayList<String>()
-        val disabledList = ArrayList<CalendarDay>()
         while (true) {
             localDate = localDate.plusDays(1)
             if (localDate == endLocalDate) break
