@@ -3,6 +3,7 @@ package com.alice.materialcalender.datetime
 import android.content.Context
 import android.graphics.Color
 import android.text.style.ForegroundColorSpan
+import androidx.core.content.ContextCompat
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -21,7 +22,7 @@ class EventDecorator(context: Context, drawable: Int, calendarDays1: List<Calend
 
     override fun decorate(view: DayViewFacade) {
         // apply drawable to dayView
-        view.setSelectionDrawable(context.getResources().getDrawable(drawable))
+        ContextCompat.getDrawable(context, drawable)?.let { view.setSelectionDrawable(it) }
 
         when (color) {
             0 -> {
